@@ -243,7 +243,213 @@
 
 // export default MovieListScreen;
 
-import React, {useState, useEffect} from 'react';
+//*************below code is working perfectly fine */
+
+// import React, {useState, useEffect} from 'react';
+// import {
+//   View,
+//   Text,
+//   TextInput,
+//   TouchableOpacity,
+//   Image,
+//   FlatList,
+//   ActivityIndicator,
+//   ScrollView,
+//   Alert,
+//   NetInfo,
+// } from 'react-native';
+// import {
+//   widthPercentageToDP as wp,
+//   heightPercentageToDP as hp,
+// } from 'react-native-responsive-screen';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// const MovieListScreen = ({navigation}) => {
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [movies, setMovies] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [searchHistory, setSearchHistory] = useState([]);
+//   const [showHistory, setShowHistory] = useState(false);
+//   const [error, setError] = useState('');
+
+//   useEffect(() => {
+//     loadSearchHistory();
+//   }, []);
+
+//   const checkInternetConnection = async () => {
+//     try {
+//       const response = await fetch('https://www.google.com');
+//       return response.status === 200;
+//     } catch (error) {
+//       return false;
+//     }
+//   };
+
+//   const loadSearchHistory = async () => {
+//     try {
+//       const history = await AsyncStorage.getItem('searchHistory');
+//       if (history) setSearchHistory(JSON.parse(history));
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   const saveSearch = async query => {
+//     try {
+//       const updatedHistory = [
+//         query,
+//         ...searchHistory.filter(item => item !== query),
+//       ].slice(0, 5);
+//       await AsyncStorage.setItem(
+//         'searchHistory',
+//         JSON.stringify(updatedHistory),
+//       );
+//       setSearchHistory(updatedHistory);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   const searchMovies = async query => {
+//     if (!query) return;
+
+//     setLoading(true);
+//     setShowHistory(false);
+//     setError(''); // Clear any previous errors
+
+//     // Check internet connection
+//     const isConnected = await checkInternetConnection();
+//     if (!isConnected) {
+//       setLoading(false);
+//       Alert.alert(
+//         'No Internet Connection',
+//         'Please check your internet connection and try again.',
+//         [{text: 'OK'}],
+//       );
+//       return;
+//     }
+
+//     try {
+//       const response = await fetch(
+//         `https://omdbapi.com/?s=${query}&apikey=a0783fa9`,
+//       );
+//       const data = await response.json();
+
+//       if (data.Response === 'True') {
+//         setMovies(data.Search);
+//         saveSearch(query);
+//         setError('');
+//       } else {
+//         setMovies([]);
+//         setError(`No movies found for "${query}"`);
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       Alert.alert(
+//         'Error',
+//         'Something went wrong while fetching movies. Please try again.',
+//         [{text: 'OK'}],
+//       );
+//     }
+//     setLoading(false);
+//   };
+
+//   const renderMovieItem = ({item}) => (
+//     <TouchableOpacity
+//       style={styles.movieItem}
+//       onPress={() => navigation.navigate('MovieDetail', {imdbID: item.imdbID})}>
+//       <Image
+//         source={{uri: item.Poster}}
+//         style={styles.poster}
+//         defaultSource={require('../util/movie-placeholder.png')}
+//       />
+//       <Text numberOfLines={2} style={styles.movieTitle}>
+//         {item.Title}
+//       </Text>
+//       <Text style={styles.year}>{item.Year}</Text>
+//     </TouchableOpacity>
+//   );
+
+//   const renderContent = () => {
+//     if (loading) {
+//       return <ActivityIndicator size="large" color="white" />;
+//     }
+
+//     if (error) {
+//       return (
+//         <View style={styles.errorContainer}>
+//           <Icon name="error-outline" size={wp('15%')} color="#666" />
+//           <Text style={styles.errorText}>{error}</Text>
+//         </View>
+//       );
+//     }
+
+//     return (
+//       <FlatList
+//         data={movies}
+//         renderItem={renderMovieItem}
+//         keyExtractor={item => item.imdbID}
+//         numColumns={3}
+//         contentContainerStyle={styles.movieGrid}
+//       />
+//     );
+//   };
+
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.header}>
+//         <View style={styles.titleContainer}>
+//           <Text style={styles.headerTitle}>Browse</Text>
+//           <Text style={styles.subTitle}>Movies</Text>
+//         </View>
+//         <TouchableOpacity style={styles.menuButton}>
+//           <Icon name="menu" size={wp('6%')} color="white" />
+//         </TouchableOpacity>
+//       </View>
+//       <View style={styles.searchContainer}>
+//         <Icon
+//           name="search"
+//           size={wp('5%')}
+//           color="gray"
+//           style={styles.searchIcon}
+//         />
+//         <TextInput
+//           style={styles.searchInput}
+//           placeholder="Search movies"
+//           placeholderTextColor="gray"
+//           value={searchQuery}
+//           onChangeText={text => {
+//             setSearchQuery(text);
+//             setShowHistory(text.length > 0);
+//           }}
+//           onSubmitEditing={() => searchMovies(searchQuery)}
+//         />
+//       </View>
+
+//       {showHistory && searchHistory.length > 0 && (
+//         <View style={styles.historyContainer}>
+//           {searchHistory.map((item, index) => (
+//             <TouchableOpacity
+//               key={index}
+//               style={styles.historyItem}
+//               onPress={() => {
+//                 setSearchQuery(item);
+//                 searchMovies(item);
+//               }}>
+//               <Icon name="history" size={wp('4%')} color="gray" />
+//               <Text style={styles.historyText}>{item}</Text>
+//             </TouchableOpacity>
+//           ))}
+//         </View>
+//       )}
+
+//       {renderContent()}
+//     </View>
+//   );
+// };
+
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -254,7 +460,6 @@ import {
   ActivityIndicator,
   ScrollView,
   Alert,
-  NetInfo,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -274,6 +479,21 @@ const MovieListScreen = ({navigation}) => {
   useEffect(() => {
     loadSearchHistory();
   }, []);
+
+  // Debounced search effect
+  useEffect(() => {
+    const trimmedQuery = searchQuery.trim();
+    if (trimmedQuery.length > 0) {
+      const debounceTimeout = setTimeout(() => {
+        searchMovies(trimmedQuery);
+      }, 500); // 500ms delay for debouncing
+
+      return () => clearTimeout(debounceTimeout);
+    } else if (searchQuery === '') {
+      setMovies([]);
+      setError('');
+    }
+  }, [searchQuery]);
 
   const checkInternetConnection = async () => {
     try {
@@ -421,7 +641,6 @@ const MovieListScreen = ({navigation}) => {
             setSearchQuery(text);
             setShowHistory(text.length > 0);
           }}
-          onSubmitEditing={() => searchMovies(searchQuery)}
         />
       </View>
 
